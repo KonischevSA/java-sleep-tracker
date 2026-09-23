@@ -1,10 +1,8 @@
 package ru.yandex.practicum.sleeptracker;
 
 import org.junit.jupiter.api.Test;
-import ru.yandex.practicum.sleeptracker.functions.SleepingSessionsCount;
 import ru.yandex.practicum.sleeptracker.functions.SleeplessSessionsCount;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 

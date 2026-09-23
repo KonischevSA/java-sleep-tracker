@@ -2,7 +2,6 @@ package ru.yandex.practicum.sleeptracker;
 
 import org.junit.jupiter.api.Test;
 import ru.yandex.practicum.sleeptracker.functions.SleepingSessionsBadQualityCount;
-import ru.yandex.practicum.sleeptracker.functions.SleepingSessionsMinDuration;
 
 import java.util.ArrayList;
 import java.util.List;

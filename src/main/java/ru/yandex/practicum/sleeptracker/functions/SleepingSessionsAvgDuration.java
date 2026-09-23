@@ -4,10 +4,8 @@ import ru.yandex.practicum.sleeptracker.SleepingSession;
 
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.OptionalDouble;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class SleepingSessionsAvgDuration implements Function<ArrayList<SleepingSession>, SleepAnalysisResult> {
 

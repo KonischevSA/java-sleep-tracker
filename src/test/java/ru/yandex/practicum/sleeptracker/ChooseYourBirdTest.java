@@ -2,7 +2,6 @@ package ru.yandex.practicum.sleeptracker;
 
 import org.junit.jupiter.api.Test;
 import ru.yandex.practicum.sleeptracker.functions.ChooseYourBird;
-import ru.yandex.practicum.sleeptracker.functions.SleepingSessionsBadQualityCount;
 
 import java.util.ArrayList;
 import java.util.List;

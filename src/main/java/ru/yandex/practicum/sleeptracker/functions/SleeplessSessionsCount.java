@@ -2,7 +2,6 @@ package ru.yandex.practicum.sleeptracker.functions;
 
 import ru.yandex.practicum.sleeptracker.SleepingSession;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.function.Function;
 import java.util.stream.Collectors;
