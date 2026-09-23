@@ -15,7 +15,7 @@ public class SleepingSessionsMinDuration implements Function<ArrayList<SleepingS
                 .map(SleepingSession::getSessionDuration)
                 .min(Duration::compareTo);
 
-        return minDuration.map(duration -> new SleepAnalysisResult("Наименьшая продолжительность сна (мин.): " + duration.toMinutes()
-                , duration.toMinutes())).orElseGet(() -> new SleepAnalysisResult("Наименьшая продолжительность сна (мин.): " + 0, 0));
+        return minDuration.map(duration -> new SleepAnalysisResult("Наименьшая продолжительность сна (мин.): " + duration.toMinutes(),
+                duration.toMinutes())).orElseGet(() -> new SleepAnalysisResult("Наименьшая продолжительность сна (мин.): " + 0, 0));
     }
 }

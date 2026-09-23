@@ -63,7 +63,9 @@ public class SleepingLogLoader {
             return new SleepingSession(LocalDateTime.parse(words[0], formatter),
                     LocalDateTime.parse(words[1], formatter), getSleepingQuality(words[2]));
         } catch (DateTimeParseException ex) {
-            throw new DateTimeParseException("Не удалось распознать формат даты в строке " + ex.getParsedString(), ex.getParsedString(), ex.getErrorIndex());
+            throw new DateTimeParseException("Не удалось распознать формат даты в строке " + ex.getParsedString(),
+                    ex.getParsedString(),
+                    ex.getErrorIndex());
         }
     }
 }

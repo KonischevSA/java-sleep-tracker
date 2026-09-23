@@ -15,15 +15,15 @@ public class ChooseYourBird implements Function<ArrayList<SleepingSession>, Slee
         return sessions.stream()
                 .filter(SleepingSession::isNightSession)
                 .map(ss -> {
-                    if ((ss.getSessionBeginning().toLocalTime().isAfter(LocalTime.of(23, 0))
-                            || ss.getSessionBeginning().toLocalTime().equals(LocalTime.of(23, 0))) &&
-                            (ss.getSessionEnd().toLocalTime().isAfter(LocalTime.of(9, 0))
-                                    || ss.getSessionEnd().toLocalTime().equals(LocalTime.of(9, 0)))) {
+                    if ((ss.getSessionBeginning().toLocalTime().isAfter(LocalTime.of(23, 0)) ||
+                            ss.getSessionBeginning().toLocalTime().equals(LocalTime.of(23, 0))) &&
+                            (ss.getSessionEnd().toLocalTime().isAfter(LocalTime.of(9, 0)) ||
+                                    ss.getSessionEnd().toLocalTime().equals(LocalTime.of(9, 0)))) {
                         return "Сова";
-                    } else if ((ss.getSessionBeginning().toLocalTime().isBefore(LocalTime.of(22, 0))
-                            || ss.getSessionBeginning().toLocalTime().equals(LocalTime.of(22, 0))) &&
-                            (ss.getSessionEnd().toLocalTime().isBefore(LocalTime.of(7, 0))
-                                    || ss.getSessionEnd().toLocalTime().equals(LocalTime.of(7, 0)))) {
+                    } else if ((ss.getSessionBeginning().toLocalTime().isBefore(LocalTime.of(22, 0)) ||
+                            ss.getSessionBeginning().toLocalTime().equals(LocalTime.of(22, 0))) &&
+                            (ss.getSessionEnd().toLocalTime().isBefore(LocalTime.of(7, 0)) ||
+                                    ss.getSessionEnd().toLocalTime().equals(LocalTime.of(7, 0)))) {
                         return "Жаворонок";
                     } else {
                         return "Голубь";

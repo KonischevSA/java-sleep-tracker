@@ -15,7 +15,7 @@ public class SleepingSessionsMaxDuration implements Function<ArrayList<SleepingS
                 .map(SleepingSession::getSessionDuration)
                 .max(Duration::compareTo);
 
-        return minDuration.map(duration -> new SleepAnalysisResult("Наибольшая продолжительность сна (мин.): " + duration.toMinutes()
-                , duration.toMinutes())).orElseGet(() -> new SleepAnalysisResult("Наибольшая продолжительность сна (мин.): " + 0, 0));
+        return minDuration.map(duration -> new SleepAnalysisResult("Наибольшая продолжительность сна (мин.): " + duration.toMinutes(),
+                duration.toMinutes())).orElseGet(() -> new SleepAnalysisResult("Наибольшая продолжительность сна (мин.): " + 0, 0));
     }
 }
