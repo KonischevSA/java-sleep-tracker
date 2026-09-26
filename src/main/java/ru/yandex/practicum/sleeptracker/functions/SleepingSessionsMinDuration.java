@@ -1,0 +1,26 @@
+package ru.yandex.practicum.sleeptracker.functions;
+
+import ru.yandex.practicum.sleeptracker.SleepingSession;
+
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Optional;
+import java.util.function.Function;
+
+public class SleepingSessionsMinDuration implements Function<ArrayList<SleepingSession>, SleepAnalysisResult> {
+
+    @Override
+    public SleepAnalysisResult apply(ArrayList<SleepingSession> sessions) {
+
+        if (sessions.isEmpty()) {
+            return new SleepAnalysisResult("Наименьшая продолжительность сна (мин.): " + 0, 0);
+        }
+
+        Optional<Duration> minDuration = sessions.stream()
+                .map(SleepingSession::getSessionDuration)
+                .min(Duration::compareTo);
+
+        return new SleepAnalysisResult("Наименьшая продолжительность сна (мин.): " + minDuration.get().toMinutes(),
+                minDuration.get().toMinutes());
+    }
+}
