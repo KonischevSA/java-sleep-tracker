@@ -5,7 +5,6 @@ import ru.yandex.practicum.sleeptracker.SleepingSessionQuality;
 
 import java.util.ArrayList;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class SleepingSessionsBadQualityCount implements Function<ArrayList<SleepingSession>, SleepAnalysisResult> {
 
