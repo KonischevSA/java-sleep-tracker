@@ -48,6 +48,11 @@ public class ChooseYourBirdTest {
             "02.10.25 22:30;03.10.25 07:30;BAD"
     ));
 
+    static List<String> sessions_owl_equal_skylark = new ArrayList<>(List.of(
+            "02.10.25 23:00;03.10.25 09:00;BAD",
+            "03.10.25 22:00;04.10.25 07:00;BAD"
+    ));
+
     @Test
     public void test_emptySessionsListShouldReturnPigeon() {
         ArrayList<SleepingSession> sessions = SleepingLogLoader.loadSessions(sessions_empty);
@@ -107,6 +112,14 @@ public class ChooseYourBirdTest {
     @Test
     public void test_between22And23AndBetween7And9HoursShouldReturnPigeon() {
         ArrayList<SleepingSession> sessions = SleepingLogLoader.loadSessions(sessions_single_between_22_23_7_9);
+        ChooseYourBird func = new ChooseYourBird();
+
+        assertEquals("Голубь", func.apply(sessions).getResultValue());
+    }
+
+    @Test
+    public void test_owlCountEqualSkylarkCountShouldReturnPigeon() {
+        ArrayList<SleepingSession> sessions = SleepingLogLoader.loadSessions(sessions_owl_equal_skylark);
         ChooseYourBird func = new ChooseYourBird();
 
         assertEquals("Голубь", func.apply(sessions).getResultValue());

@@ -11,11 +11,16 @@ public class SleepingSessionsMaxDuration implements Function<ArrayList<SleepingS
 
     @Override
     public SleepAnalysisResult apply(ArrayList<SleepingSession> sessions) {
+
+        if (sessions.isEmpty()) {
+            return new SleepAnalysisResult("Наибольшая продолжительность сна (мин.): " + 0, 0);
+        }
+
         Optional<Duration> minDuration = sessions.stream()
                 .map(SleepingSession::getSessionDuration)
                 .max(Duration::compareTo);
 
-        return minDuration.map(duration -> new SleepAnalysisResult("Наибольшая продолжительность сна (мин.): " + duration.toMinutes(),
-                duration.toMinutes())).orElseGet(() -> new SleepAnalysisResult("Наибольшая продолжительность сна (мин.): " + 0, 0));
+        return new SleepAnalysisResult("Наибольшая продолжительность сна (мин.): " + minDuration.get().toMinutes(),
+                minDuration.get().toMinutes());
     }
 }

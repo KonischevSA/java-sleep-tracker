@@ -11,9 +11,9 @@ public class SleepingSessionsBadQualityCount implements Function<ArrayList<Sleep
 
     @Override
     public SleepAnalysisResult apply(ArrayList<SleepingSession> sessions) {
-        Integer result = sessions.stream()
+        Long result = sessions.stream()
                 .filter(ss -> ss.getSleepingQuality() == SleepingSessionQuality.BAD)
-                .collect(Collectors.toSet()).size();
+                .count();
 
         return new SleepAnalysisResult("Количество сессий сна с плохим качеством в анализируемом периоде: " + result, result);
     }

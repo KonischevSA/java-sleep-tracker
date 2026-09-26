@@ -11,11 +11,16 @@ public class SleepingSessionsMinDuration implements Function<ArrayList<SleepingS
 
     @Override
     public SleepAnalysisResult apply(ArrayList<SleepingSession> sessions) {
+
+        if (sessions.isEmpty()) {
+            return new SleepAnalysisResult("Наименьшая продолжительность сна (мин.): " + 0, 0);
+        }
+
         Optional<Duration> minDuration = sessions.stream()
                 .map(SleepingSession::getSessionDuration)
                 .min(Duration::compareTo);
 
-        return minDuration.map(duration -> new SleepAnalysisResult("Наименьшая продолжительность сна (мин.): " + duration.toMinutes(),
-                duration.toMinutes())).orElseGet(() -> new SleepAnalysisResult("Наименьшая продолжительность сна (мин.): " + 0, 0));
+        return new SleepAnalysisResult("Наименьшая продолжительность сна (мин.): " + minDuration.get().toMinutes(),
+                minDuration.get().toMinutes());
     }
 }

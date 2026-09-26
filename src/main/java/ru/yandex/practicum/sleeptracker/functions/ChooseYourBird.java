@@ -12,7 +12,12 @@ public class ChooseYourBird implements Function<ArrayList<SleepingSession>, Slee
 
     @Override
     public SleepAnalysisResult apply(ArrayList<SleepingSession> sessions) {
-        return sessions.stream()
+
+        if (sessions.isEmpty()) {
+            return new SleepAnalysisResult("Поздравляем! Вы - Голубь", "Голубь");
+        }
+
+        Map<String, Long> birds = sessions.stream()
                 .filter(SleepingSession::isNightSession)
                 .map(ss -> {
                     if ((ss.getSessionBeginning().toLocalTime().isAfter(LocalTime.of(23, 0)) ||
@@ -29,12 +34,42 @@ public class ChooseYourBird implements Function<ArrayList<SleepingSession>, Slee
                         return "Голубь";
                     }
                 })
-                .collect(Collectors.groupingBy(s -> s, Collectors.counting()))
-                .entrySet().stream()
-                .sorted((o1, o2) -> Math.toIntExact(o2.getValue() - o1.getValue()))
-                .map(Map.Entry::getKey)
-                .findFirst()
-                .map(s -> new SleepAnalysisResult("Поздравляем! Вы - " + s, s))
-                .orElseGet(() -> new SleepAnalysisResult("Вероятно, Вы - Голубь", "Голубь"));
+                .collect(Collectors.groupingBy(s -> s, Collectors.counting()));
+
+        /*Вынес выбор наибольшего значения вместо getFirst(),
+         * т.к. getFirst() не гарантирует, что остальные значения меньше.*/
+
+        long owlCount = 0;
+        long skylarkCount = 0;
+        long PigeonCount = 0;
+        String bird = "Голубь";
+
+        if (birds.containsKey("Сова")) {
+            owlCount = birds.get("Сова");
+        }
+
+        if (birds.containsKey("Жаворонок")) {
+            skylarkCount = birds.get("Жаворонок");
+        }
+
+        if (birds.containsKey("Голубь")) {
+            PigeonCount = birds.get("Голубь");
+        }
+
+        if (owlCount > skylarkCount) {
+            if (owlCount > PigeonCount) {
+                bird = "Сова";
+            } else {
+                bird = "Голубь";
+            }
+        } else if (skylarkCount > owlCount) {
+            if (skylarkCount > PigeonCount) {
+                bird = "Жаворонок";
+            } else {
+                bird = "Голубь";
+            }
+        }
+
+        return new SleepAnalysisResult("Поздравляем! Вы - " + bird, bird);
     }
 }

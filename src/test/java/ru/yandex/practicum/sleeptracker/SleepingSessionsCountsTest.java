@@ -1,14 +1,14 @@
 package ru.yandex.practicum.sleeptracker;
 
 import org.junit.jupiter.api.Test;
-import ru.yandex.practicum.sleeptracker.functions.SleepingSessionsBadQualityCount;
+import ru.yandex.practicum.sleeptracker.functions.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class SleepingSessionsBadQualityCountTest {
+public class SleepingSessionsCountsTest {
 
     static List<String> sessions_empty = new ArrayList<>();
 
@@ -29,11 +29,11 @@ public class SleepingSessionsBadQualityCountTest {
     ));
 
     @Test
-    public void test_emptySessionsListShouldReturn0() {
+    public void test_emptySessionsListShouldReturn0BadCount() {
         ArrayList<SleepingSession> sessions = SleepingLogLoader.loadSessions(sessions_empty);
         SleepingSessionsBadQualityCount func = new SleepingSessionsBadQualityCount();
 
-        assertEquals(0, func.apply(sessions).getResultValue());
+        assertEquals(0L, func.apply(sessions).getResultValue());
     }
 
     @Test
@@ -41,7 +41,7 @@ public class SleepingSessionsBadQualityCountTest {
         ArrayList<SleepingSession> sessions = SleepingLogLoader.loadSessions(sessions_single_normal);
         SleepingSessionsBadQualityCount func = new SleepingSessionsBadQualityCount();
 
-        assertEquals(0, func.apply(sessions).getResultValue());
+        assertEquals(0L, func.apply(sessions).getResultValue());
     }
 
     @Test
@@ -49,7 +49,7 @@ public class SleepingSessionsBadQualityCountTest {
         ArrayList<SleepingSession> sessions = SleepingLogLoader.loadSessions(sessions_single_bad);
         SleepingSessionsBadQualityCount func = new SleepingSessionsBadQualityCount();
 
-        assertEquals(1, func.apply(sessions).getResultValue());
+        assertEquals(1L, func.apply(sessions).getResultValue());
     }
 
     @Test
@@ -57,6 +57,30 @@ public class SleepingSessionsBadQualityCountTest {
         ArrayList<SleepingSession> sessions = SleepingLogLoader.loadSessions(sessions_good);
         SleepingSessionsBadQualityCount func = new SleepingSessionsBadQualityCount();
 
-        assertEquals(2, func.apply(sessions).getResultValue());
+        assertEquals(2L, func.apply(sessions).getResultValue());
+    }
+
+    @Test
+    public void test_emptySessionsListShouldReturn0() {
+        ArrayList<SleepingSession> sessions = SleepingLogLoader.loadSessions(sessions_empty);
+        SleepingSessionsCount func = new SleepingSessionsCount();
+
+        assertEquals(0, func.apply(sessions).getResultValue());
+    }
+
+    @Test
+    public void test_singleRowSessionsListShouldReturn1() {
+        ArrayList<SleepingSession> sessions = SleepingLogLoader.loadSessions(sessions_single_normal);
+        SleepingSessionsCount func = new SleepingSessionsCount();
+
+        assertEquals(1, func.apply(sessions).getResultValue());
+    }
+
+    @Test
+    public void test_fiveRowsSessionsListShouldReturn5() {
+        ArrayList<SleepingSession> sessions = SleepingLogLoader.loadSessions(sessions_good);
+        SleepingSessionsCount func = new SleepingSessionsCount();
+
+        assertEquals(5, func.apply(sessions).getResultValue());
     }
 }

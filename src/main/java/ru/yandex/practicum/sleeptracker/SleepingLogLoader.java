@@ -15,31 +15,26 @@ import static java.util.stream.Collectors.toCollection;
 
 public class SleepingLogLoader {
 
-    public static ArrayList<SleepingSession> loadSessions(String logFile) throws IOException {
-        List<SleepingSession> sessions = new ArrayList<>();
-        String[] line;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy HH:mm");
+    public static ArrayList<SleepingSession> loadSessions(String logFile) throws IOException, DateTimeParseException,
+            DateTimeParseChainException, SleepingQualityFormatException {
 
         try (BufferedReader br = new BufferedReader(new FileReader(logFile))) {
 
             return br.lines()
                     .map(SleepingLogLoader::parseLine)
                     .collect(toCollection(ArrayList::new));
-
-        } catch (Exception e) {
-            System.out.println("Возникла ошибка при загрузке файла логов сна.\n" + e.getMessage());
-            throw e;
         }
     }
 
     /*Метод добавлен для удобства тестирования, чтобы плодить меньше файлов*/
-    public static ArrayList<SleepingSession> loadSessions(List<String> sessionStrings) {
+    public static ArrayList<SleepingSession> loadSessions(List<String> sessionStrings) throws DateTimeParseException,
+            DateTimeParseChainException, SleepingQualityFormatException {
         return sessionStrings.stream()
                 .map(SleepingLogLoader::parseLine)
                 .collect(toCollection(ArrayList::new));
     }
 
-    private static SleepingSessionQuality getSleepingQuality(String qualityString) {
+    private static SleepingSessionQuality getSleepingQuality(String qualityString) throws SleepingQualityFormatException {
         return switch (qualityString) {
             case "GOOD" -> SleepingSessionQuality.GOOD;
             case "NORMAL" -> SleepingSessionQuality.NORMAL;
@@ -49,7 +44,7 @@ public class SleepingLogLoader {
         };
     }
 
-    private static SleepingSession parseLine(String line) {
+    private static SleepingSession parseLine(String line) throws DateTimeParseException, DateTimeParseChainException {
         try {
             String[] words = line.split(";");
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy HH:mm");
@@ -63,7 +58,8 @@ public class SleepingLogLoader {
             return new SleepingSession(LocalDateTime.parse(words[0], formatter),
                     LocalDateTime.parse(words[1], formatter), getSleepingQuality(words[2]));
         } catch (DateTimeParseException ex) {
-            throw new DateTimeParseException("Не удалось распознать формат даты в строке " + ex.getParsedString(),
+            throw new DateTimeParseException("Не удалось распознать формат даты в строке " + ex.getParsedString() +
+                    ". Ожидаемый формат даты: dd.MM.yy HH:mm",
                     ex.getParsedString(),
                     ex.getErrorIndex());
         }
