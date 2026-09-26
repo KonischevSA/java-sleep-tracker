@@ -62,6 +62,14 @@ public class ChooseYourBirdTest {
     }
 
     @Test
+    public void test_normalSessionsListShouldReturnPigeon() {
+        ArrayList<SleepingSession> sessions = SleepingLogLoader.loadSessions(sessions_good);
+        ChooseYourBird func = new ChooseYourBird();
+
+        assertEquals("Голубь", func.apply(sessions).getResultValue());
+    }
+
+    @Test
     public void test_after23AndAfter9HoursShouldReturnOwl() {
         ArrayList<SleepingSession> sessions = SleepingLogLoader.loadSessions(sessions_single_after_23_9);
         ChooseYourBird func = new ChooseYourBird();
