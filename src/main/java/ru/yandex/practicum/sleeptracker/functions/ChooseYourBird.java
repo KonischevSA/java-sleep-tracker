@@ -41,7 +41,7 @@ public class ChooseYourBird implements Function<ArrayList<SleepingSession>, Slee
 
         long owlCount = 0;
         long skylarkCount = 0;
-        long PigeonCount = 0;
+        long pigeonCount = 0;
         String bird = "Голубь";
 
         if (birds.containsKey("Сова")) {
@@ -53,17 +53,17 @@ public class ChooseYourBird implements Function<ArrayList<SleepingSession>, Slee
         }
 
         if (birds.containsKey("Голубь")) {
-            PigeonCount = birds.get("Голубь");
+            pigeonCount = birds.get("Голубь");
         }
 
         if (owlCount > skylarkCount) {
-            if (owlCount > PigeonCount) {
+            if (owlCount > pigeonCount) {
                 bird = "Сова";
             } else {
                 bird = "Голубь";
             }
         } else if (skylarkCount > owlCount) {
-            if (skylarkCount > PigeonCount) {
+            if (skylarkCount > pigeonCount) {
                 bird = "Жаворонок";
             } else {
                 bird = "Голубь";
